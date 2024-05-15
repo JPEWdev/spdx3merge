@@ -34,6 +34,9 @@ spdx3merge \
     --author-person "Joshua Watt"
 ```
 
+If you are going to read the document, you'll most likely also want the
+`--pretty` option to make it more readable
+
 ## Development
 
 Development on `spdx3merge` can be done by setting up a virtual environment and
