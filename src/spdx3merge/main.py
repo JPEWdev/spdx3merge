@@ -137,6 +137,8 @@ def main():
 
         doc.imports.append(m)
 
+    profiles = set()
+
     # Copy imports
     for d in documents:
         for i in d.imports:
@@ -150,6 +152,10 @@ def main():
                 continue
 
             doc.imports.append(i)
+
+        profiles |= set(d.profileConformance)
+
+    doc.profileConformance = sorted(list(profiles))
 
     out_objset.add(doc)
 
