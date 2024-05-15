@@ -88,7 +88,7 @@ def main():
         metavar="SPDXID",
         action="append",
         default=[],
-        help="Add SPDXID as a document author",
+        help="Add SPDXID as a document author (may need to add an --import also)",
     )
 
     args = parser.parse_args()
