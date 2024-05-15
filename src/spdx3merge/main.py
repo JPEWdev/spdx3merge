@@ -3,10 +3,11 @@
 # SPDX-License-Identifier: MIT
 
 import argparse
-
-from pathlib import Path
-from datetime import datetime, timezone
+import re
 import uuid
+
+from datetime import datetime, timezone
+from pathlib import Path
 
 from . import VERSION
 from . import spdx3
@@ -19,7 +20,12 @@ SPDXID_PREFIX = "https://spdx.dev/"
 
 def add_author(creation_info, objset, name, cls):
     author = cls()
-    author._id = SPDXID_PREFIX + str(uuid.uuid4()) + "/Author/" + name
+    author._id = (
+        SPDXID_PREFIX
+        + str(uuid.uuid4())
+        + "/Author/"
+        + re.sub(r"[^a-zA-Z0-9-]", "_", name)
+    )
     author.creationInfo = creation_info
     author.name = name
     creation_info.createdBy.append(author)
