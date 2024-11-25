@@ -14,8 +14,8 @@ from . import spdx3
 
 
 TOOL_SPDX_ID = "http://spdx.github.com/JPEWdev/spdx3merge/" + VERSION
-SPEC_VERSION = "3.0.0"
-SPDXID_PREFIX = "https://spdx.dev/"
+SPEC_VERSION = "3.0.1"
+SPDXID_PREFIX = "https://spdx.dev/spdxdocs/"
 
 
 def add_author(creation_info, objset, name, cls):
@@ -141,23 +141,23 @@ def main():
                 )
             )
 
-        doc.imports.append(m)
+        doc.import_.append(m)
 
     profiles = set()
 
     # Copy imports
     for d in documents:
-        for i in d.imports:
+        for i in d.import_:
             # If the SPDX ID is resolved but something inside the new document,
             # do not include it
             if i.externalSpdxId in out_objset:
                 continue
 
             # Skip if the external reference is already defined
-            if any(m.externalSpdxId == i.externalSpdxId for m in doc.imports):
+            if any(m.externalSpdxId == i.externalSpdxId for m in doc.import_):
                 continue
 
-            doc.imports.append(i)
+            doc.import_.append(i)
 
         profiles |= set(d.profileConformance)
 
@@ -189,7 +189,7 @@ def main():
         creation_info.createdBy.append(spdxid)
 
     missing_spdxids = out_objset.link()
-    missing_spdxids -= set(m.externalSpdxId for m in doc.imports)
+    missing_spdxids -= set(m.externalSpdxId for m in doc.import_)
     if missing_spdxids:
         print("WARNING: The following SPDX IDs are unresolved:")
         for i in sorted(list(missing_spdxids)):
